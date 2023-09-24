@@ -1,0 +1,57 @@
+package com.example.pnlib.DAO;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.example.pnlib.Database.Dbhelper;
+import com.example.pnlib.Entity.sach;
+import com.example.pnlib.Entity.topMuon;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+public class thongKeDAO {
+    private SQLiteDatabase database;
+    private Context context;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public thongKeDAO(Context context) {
+        this.context = context;
+        Dbhelper dbhelper = new Dbhelper(context);
+        database = dbhelper.getWritableDatabase();
+    }
+
+    //thống kê top 10
+    @SuppressLint("Range")
+    public ArrayList<topMuon> getTop() {
+        ArrayList<topMuon> list = new ArrayList<>();
+        String sqlTop = "select maSach, count(maSach) as soLuong from PhieuMuon " +
+                "group by maSach order by soLuong desc limit 10";
+        sachDAO sachDAO = new sachDAO(context);
+        Cursor cursor = database.rawQuery(sqlTop, null);
+        while (cursor.moveToNext()) {
+            topMuon topMuon = new topMuon();
+            sach sach = sachDAO.getID(cursor.getString(cursor.getColumnIndex("maSach")));
+            topMuon.tenSach = sach.tenSach;
+            topMuon.soLuong = Integer.parseInt(cursor.getString(cursor.getColumnIndex("soLuong")));
+            list.add(topMuon);
+        }
+        return list;
+    }
+    @SuppressLint("Range")
+    //thống kê doanh thu
+    public int doanhThu(String tuNgay, String denNgay){
+        String sqlDoanhThu = "select SUM(tienThue) as doanhThu from PhieuMuon where ngay between ? and ?";
+        ArrayList<Integer> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery(sqlDoanhThu,new String[]{tuNgay,denNgay});
+        while(cursor.moveToNext()){
+            try {
+                list.add(Integer.parseInt(cursor.getString(cursor.getColumnIndex("doanhThu"))));
+            }catch (Exception e){
+                list.add(0);
+            }
+        }
+        return list.get(0);
+    }
+}
