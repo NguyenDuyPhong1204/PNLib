@@ -16,7 +16,7 @@ import com.example.pnlib.R;
 
 import java.util.ArrayList;
 
-public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.viewHolep>{
+public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.viewHolep> {
     Context context;
     private final ArrayList<loaiSach> list;
     loaiSachDAO loaiSachDAO;
@@ -30,13 +30,14 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.viewHo
     @NonNull
     @Override
     public viewHolep onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loaisach,parent,false);
-       return new viewHolep(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loaisach, null);
+        return new viewHolep(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolep holder, int position) {
-
+        holder.tvTenLoai.setText(list.get(position).getTenLoai());
+        holder.tvMaLoai.setText(String.valueOf(list.get(position).getMaLoai()));
     }
 
     @Override
@@ -47,6 +48,7 @@ public class adapterLoaiSach extends RecyclerView.Adapter<adapterLoaiSach.viewHo
     public static class viewHolep extends RecyclerView.ViewHolder {
         TextView tvMaLoai, tvTenLoai;
         ImageView imgXoa;
+
         public viewHolep(@NonNull View itemView) {
             super(itemView);
             tvMaLoai = itemView.findViewById(R.id.tvMaTheLoai);

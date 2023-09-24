@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class Dbhelper extends SQLiteOpenHelper {
     public Dbhelper(Context context) {
-        super(context, "PBLIB", null, 6);
+        super(context, "PBLIB", null, 14);
     }
 
     @Override
@@ -26,11 +26,11 @@ public class Dbhelper extends SQLiteOpenHelper {
 
         // tạo bảng thủ thư
         String createTableThuThu = ("CREATE TABLE ThuThu" +
-                "(maTT INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "(maTT TEXT PRIMARY KEY, " +
                 "hoTen TEXT NOT NULL, " +
                 "matKhau TEXT NOT NULL)");
         database.execSQL(createTableThuThu);
-//        database.execSQL("insert into ThuThu values ('TT01','Phong','phong1204')");
+        database.execSQL("insert into ThuThu values ('TT01','Phong','phong1204')");
 
         //tạo bảng loại loại sách
         String createTableLoaiSach = ("CREATE TABLE LoaiSach" +
@@ -54,11 +54,12 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "maTV INTEGER REFERENCES ThanhVien(maTV)," +
                 "maTT TEXT REFERENCES ThuThu(maTT)," +
                 "maSach INTEGER REFERENCES Sach(maSach)," +
-                "ngayMuon DATE NOT NULL," +
+                "ngayMuon TEXT NOT NULL," +
                 "traSach INTEGER NOT NULL," +
                 "tienThue INTEGER NOT NULL)");
         database.execSQL(createTablePhieuMuon);
-//        database.execSQL("insert into PhieuMuon values(0,0,'TT01',0,'24/09/2023',1,20000)");
+        database.execSQL("insert into PhieuMuon values(0,0,'TT01',0,'24/09/2023',1,20000)");
+        database.execSQL("insert into PhieuMuon values(1,0,'TT01',0,'24/09/2023',0,20000)");
 
 
         //data mẫu
@@ -68,7 +69,7 @@ public class Dbhelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         //bảng thành viên
-        if(oldVersion != newVersion){
+        if (oldVersion != newVersion) {
             database.execSQL("drop table if exists ThanhVien");
             //bảng thủ thư
             database.execSQL("drop table if exists ThuThu");

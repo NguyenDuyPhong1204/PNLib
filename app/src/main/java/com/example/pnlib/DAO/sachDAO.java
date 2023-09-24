@@ -7,10 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.pnlib.Database.Dbhelper;
-import com.example.pnlib.Entity.phieuMuon;
 import com.example.pnlib.Entity.sach;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class sachDAO {
@@ -49,12 +47,6 @@ public class sachDAO {
         return list;
     }
 
-//    //get data theo id
-//    public sach getID(String id){
-//        String sql = "select * FROM ThanhVien WHERE maTV=?";
-//        ArrayList<sach> list = getAll(sql,id);
-//        return list.get(0);
-//    }
 
     public boolean insert(sach sach) {
         //viết dữ liệu vào database

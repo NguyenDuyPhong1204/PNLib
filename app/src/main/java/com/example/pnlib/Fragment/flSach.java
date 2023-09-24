@@ -10,11 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.pnlib.Adapter.adapterLoaiSach;
 import com.example.pnlib.Adapter.adapterSach;
-import com.example.pnlib.DAO.loaiSachDAO;
 import com.example.pnlib.DAO.sachDAO;
-import com.example.pnlib.Entity.loaiSach;
 import com.example.pnlib.Entity.sach;
 import com.example.pnlib.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

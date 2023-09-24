@@ -12,10 +12,12 @@
         android:src="@drawable/book_dangnhap" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txttenDN"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edTenDN"
@@ -25,9 +27,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtmatKhau"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:errorEnabled="true"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -35,8 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mật khẩu"
-            android:inputType="textPassword"
-            />
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox

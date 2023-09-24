@@ -30,7 +30,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
     @NonNull
     @Override
     public viewHolep onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qls,parent,false);
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qls,null);
        return new viewHolep(view);
     }
 

@@ -24,9 +24,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Tên thủ thư: "
+                android:textSize="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Người mượn: "
                 android:textSize="20dp" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,14 +56,18 @@
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textSize="20dp" />
-
+            <TextView
+                android:id="@+id/tvTenTT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="20dp" />
             <TextView
                 android:id="@+id/tvNguoiM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phong"
                 android:textSize="20dp" />
-
             <TextView
                 android:id="@+id/tvTenSachP"
                 android:layout_width="150dp"
@@ -97,14 +105,13 @@
                 android:layout_marginTop="5dp"
                 android:text="18/09/2023"
                 android:textSize="17dp" />
-        </LinearLayout>
 
+        </LinearLayout>
         <ImageView
             android:id="@+id/imgDeletePM"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="55dp"
             android:src="@drawable/delete" />
     </LinearLayout>
-
 </LinearLayout>

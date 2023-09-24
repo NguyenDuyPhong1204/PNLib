@@ -3,21 +3,46 @@ package com.example.pnlib.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pnlib.Adapter.adapterPhieuMuon;
+import com.example.pnlib.Adapter.adapterSach;
+import com.example.pnlib.DAO.phieuMuonDAO;
+import com.example.pnlib.DAO.sachDAO;
+import com.example.pnlib.Entity.phieuMuon;
+import com.example.pnlib.Entity.sach;
 import com.example.pnlib.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 
 public class flPhieuMuon extends Fragment {
-
+    RecyclerView rcvPM;
+    FloatingActionButton fltAdd;
+    ArrayList<phieuMuon> list;
+    phieuMuonDAO pmDAO;
+    adapterPhieuMuon adapterPhieuMuon;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fl_phieu_muon, container, false);
+        View view = inflater.inflate(R.layout.fragment_fl_phieu_muon, container, false);
+        rcvPM = view.findViewById(R.id.rcvPhieuMuon);
+        fltAdd = view.findViewById(R.id.flAddPM);
+        rcvPM.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        pmDAO = new phieuMuonDAO(getActivity());
+        list = new ArrayList<>();
+        list = pmDAO.getAll();
+        adapterPhieuMuon = new adapterPhieuMuon(getActivity(), list);
+        rcvPM.setAdapter(adapterPhieuMuon);
+        return view;
     }
 }

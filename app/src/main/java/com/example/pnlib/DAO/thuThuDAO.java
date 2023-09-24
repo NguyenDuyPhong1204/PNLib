@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.pnlib.Database.Dbhelper;
-import com.example.pnlib.Entity.thanhVien;
 import com.example.pnlib.Entity.thuThu;
 
 import java.util.ArrayList;

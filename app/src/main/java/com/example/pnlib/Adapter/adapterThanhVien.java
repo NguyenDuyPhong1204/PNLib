@@ -30,7 +30,7 @@ thanhVienDAO tvDAO;
     @NonNull
     @Override
     public viewHolep onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qltv,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qltv,null);
         return new viewHolep(view);
     }
 

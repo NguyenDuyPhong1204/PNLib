@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.pnlib.Database.Dbhelper;
 import com.example.pnlib.Entity.loaiSach;
-import com.example.pnlib.Entity.thuThu;
 
 import java.util.ArrayList;
 
