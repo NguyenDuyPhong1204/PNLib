@@ -19,30 +19,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mã phiếu: "
-                android:textSize="20dp" />
+                android:textSize="17dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên thủ thư: "
-                android:textSize="20dp" />
+                android:textSize="17dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Người mượn: "
-                android:textSize="20dp" />
+                android:textSize="17dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên sách: "
-                android:textSize="23dp"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tiền thuê: "
-                android:textSize="20dp" />
+                android:textSize="17dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,25 +55,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:textSize="20dp" />
+                android:textSize="17dp" />
             <TextView
                 android:id="@+id/tvTenTT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:textSize="20dp" />
+                android:textSize="17dp" />
             <TextView
                 android:id="@+id/tvNguoiM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phong"
-                android:textSize="20dp" />
+                android:textSize="17dp" />
             <TextView
                 android:id="@+id/tvTenSachP"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="..."
-                android:textSize="23dp"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="20000"
-                android:textSize="20dp" />
+                android:textSize="17dp" />
         </LinearLayout>
 
         <LinearLayout

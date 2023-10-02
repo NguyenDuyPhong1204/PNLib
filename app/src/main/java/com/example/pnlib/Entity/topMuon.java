@@ -1,8 +1,8 @@
 package com.example.pnlib.Entity;
 
 public class topMuon {
-    public String tenSach;
-    public int soLuong;
+    private String tenSach;
+    private int soLuong;
 
     public topMuon() {
     }

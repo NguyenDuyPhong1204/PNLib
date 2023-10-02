@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ImageView
@@ -14,7 +15,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        app:errorEnabled="true"
+        android:id="@+id/checkTDN">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edTenDNT"
@@ -27,7 +29,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+
+        app:errorEnabled="true"
+        android:id="@+id/checkHT">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edHoTen"
@@ -41,7 +45,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+
+        app:errorEnabled="true"
+        android:id="@+id/checkMK">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edMatKhauT"
@@ -54,7 +60,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        app:errorEnabled="true"
+        android:id="@+id/checkCFMK">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edNLMK"

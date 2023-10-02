@@ -32,9 +32,9 @@ public class thongKeDAO {
         Cursor cursor = database.rawQuery(sqlTop, null);
         while (cursor.moveToNext()) {
             topMuon topMuon = new topMuon();
-            sach sach = sachDAO.getID(cursor.getString(cursor.getColumnIndex("maSach")));
-            topMuon.tenSach = sach.tenSach;
-            topMuon.soLuong = Integer.parseInt(cursor.getString(cursor.getColumnIndex("soLuong")));
+//            sach sach = sachDAO.getID(cursor.getString(cursor.getColumnIndex("maSach")));
+//            topMuon.setTenSach(sach.getTenSach());
+            topMuon.setSoLuong( Integer.parseInt(cursor.getString(cursor.getColumnIndex("soLuong"))));
             list.add(topMuon);
         }
         return list;

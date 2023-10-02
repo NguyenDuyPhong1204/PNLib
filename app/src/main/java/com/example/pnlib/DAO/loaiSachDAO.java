@@ -28,7 +28,7 @@ public class loaiSachDAO {
     //get theo id
     public loaiSach getID(String id){
         String sql = "select * from LoaiSach where maLoai = ?";
-        ArrayList<loaiSach> list = getData(sql, id);
+        ArrayList<loaiSach> list = getData(sql,id);
         return list.get(0);
     }
 
@@ -36,33 +36,30 @@ public class loaiSachDAO {
     public ArrayList<loaiSach> getData(String sql, String... selectionArgs) {
         ArrayList<loaiSach> list = new ArrayList<>();
         //đọc dữ liệu từ database
-        Cursor cursor = database.rawQuery(sql, null);
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
         while (cursor.moveToNext()) {
             loaiSach loaiSach = new loaiSach();
-            loaiSach.maLoai = Integer.parseInt(cursor.getString(cursor.getColumnIndex("maLoai")));
-            loaiSach.tenLoai = cursor.getString(cursor.getColumnIndex("tenLoai"));
+            loaiSach.setMaLoai(Integer.parseInt(cursor.getString(cursor.getColumnIndex("maLoai"))));
+            loaiSach.setTenLoai(cursor.getString(cursor.getColumnIndex("tenLoai")));
             list.add(loaiSach);
         }
         return list;
     }
 
-    public boolean insert(loaiSach loaiSach) {
+    public long insert(loaiSach loaiSach) {
         //viết dữ liệu vào database
         ContentValues values = new ContentValues();
-        values.put("tenLoai", loaiSach.tenLoai);
-        long row = database.insert("LoaiSach", null, values);
-        return (row > 0);
+        values.put("tenLoai", loaiSach.getTenLoai());
+        return database.insert("LoaiSach", null, values);
     }
 
-    public boolean update(loaiSach loaiSach) {
+    public long update(loaiSach loaiSach) {
         ContentValues values = new ContentValues();
-        values.put("tenLoai", loaiSach.tenLoai);
-        long row = database.update("LoaiSach", values, "maLoai=?", new String[]{String.valueOf(loaiSach.maLoai)});
-        return (row > 0);
+        values.put("tenLoai", loaiSach.getTenLoai());
+        return database.update("LoaiSach", values, "maLoai=?", new String[]{String.valueOf(loaiSach.getMaLoai())});
     }
 
-    public boolean delete(String id) {
-        long row = database.delete("LoaiSach", "maLoai=?", new String[]{id});
-        return (row > 0);
+    public long delete(String id) {
+       return database.delete("LoaiSach", "maLoai=?", new String[]{id});
     }
 }

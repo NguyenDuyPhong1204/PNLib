@@ -1,10 +1,14 @@
 package com.example.pnlib.Entity;
 
 public class loaiSach {
-    public int maLoai;
-    public String tenLoai;
+    private int maLoai;
+    private String tenLoai;
 
     public loaiSach() {
+    }
+
+    public loaiSach(String tenLoai) {
+        this.tenLoai = tenLoai;
     }
 
     public loaiSach(int maLoai, String tenLoai) {

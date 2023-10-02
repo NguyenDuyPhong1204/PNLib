@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class Dbhelper extends SQLiteOpenHelper {
     public Dbhelper(Context context) {
-        super(context, "PBLIB", null, 14);
+        super(context, "PBLIB", null, 21);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class Dbhelper extends SQLiteOpenHelper {
         String createTableThanhVien = ("CREATE TABLE ThanhVien\n" +
                 "(\n" +
                 "    maTV INTEGER PRIMARY KEY AUTOINCREMENT ,\n" +
-                "    hoTen  TEXT NOT NULL ,\n" +
+                "    hoTenTV  TEXT NOT NULL ,\n" +
                 "    namSinh TEXT NOT NULL\n" +
                 ")");
         database.execSQL(createTableThanhVien);
@@ -27,10 +27,10 @@ public class Dbhelper extends SQLiteOpenHelper {
         // tạo bảng thủ thư
         String createTableThuThu = ("CREATE TABLE ThuThu" +
                 "(maTT TEXT PRIMARY KEY, " +
-                "hoTen TEXT NOT NULL, " +
+                "hoTenTT TEXT NOT NULL, " +
                 "matKhau TEXT NOT NULL)");
         database.execSQL(createTableThuThu);
-        database.execSQL("insert into ThuThu values ('TT01','Phong','phong1204')");
+        database.execSQL("insert into ThuThu values ('TT01','Phong','phong1204'),('TT02','Phong','phong2004'),('admin','admin','admin')");
 
         //tạo bảng loại loại sách
         String createTableLoaiSach = ("CREATE TABLE LoaiSach" +
@@ -44,9 +44,9 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "(maSach INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "maLoai  INTEGER  REFERENCES LoaiSach(maLoai)," +
                 "tenSach TEXT NOT NULL," +
-                "giaThue TEXT NOT NULL)");
+                "giaThue INTEGER NOT NULL)");
         database.execSQL(createTableSach);
-        database.execSQL("insert into Sach values (0,0,'Android 2','20000')");
+        database.execSQL("insert into Sach values (0,0,'Android 2',20000)");
 
         //tạo bảng phiếu mượn
         String createTablePhieuMuon = ("CREATE TABLE PhieuMuon" +
@@ -54,12 +54,12 @@ public class Dbhelper extends SQLiteOpenHelper {
                 "maTV INTEGER REFERENCES ThanhVien(maTV)," +
                 "maTT TEXT REFERENCES ThuThu(maTT)," +
                 "maSach INTEGER REFERENCES Sach(maSach)," +
-                "ngayMuon TEXT NOT NULL," +
+                "ngayMuon DATE NOT NULL," +
                 "traSach INTEGER NOT NULL," +
                 "tienThue INTEGER NOT NULL)");
         database.execSQL(createTablePhieuMuon);
-        database.execSQL("insert into PhieuMuon values(0,0,'TT01',0,'24/09/2023',1,20000)");
-        database.execSQL("insert into PhieuMuon values(1,0,'TT01',0,'24/09/2023',0,20000)");
+        database.execSQL("insert into PhieuMuon values(0,0,'TT01',0,'24-09-2023',1,20000)");
+//        database.execSQL("insert into PhieuMuon values(1,0,'TT01',0,'24/09/2023',0,20000)");
 
 
         //data mẫu

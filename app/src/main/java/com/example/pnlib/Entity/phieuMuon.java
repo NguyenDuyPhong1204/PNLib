@@ -3,21 +3,18 @@ package com.example.pnlib.Entity;
 import java.util.Date;
 
 public class phieuMuon {
-    public int maPM;
-    public String maTT;
-    public int maTV;
-    public int maSach;
-    public String ngay;
-    public int traSach;
-    public int tienThue;
-    public String tenTV;
-    public String tenTT;
-    public String tenSach;
+    private int maPM;
+    private String maTT;
+    private int maTV;
+    private int maSach;
+    private Date ngay;
+    private int traSach;
+    private int tienThue;
 
     public phieuMuon() {
     }
 
-    public phieuMuon(int maPM, String maTT, int maTV, int maSach, String ngay, int traSach, int tienThue, String tenTV, String tenTT, String tenSach) {
+    public phieuMuon(int maPM, String maTT, int maTV, int maSach, Date ngay, int traSach, int tienThue) {
         this.maPM = maPM;
         this.maTT = maTT;
         this.maTV = maTV;
@@ -25,9 +22,15 @@ public class phieuMuon {
         this.ngay = ngay;
         this.traSach = traSach;
         this.tienThue = tienThue;
-        this.tenTV = tenTV;
-        this.tenTT = tenTT;
-        this.tenSach = tenSach;
+    }
+
+    public phieuMuon(String maTT, int maTV, int maSach, Date ngay, int traSach, int tienThue) {
+        this.maTT = maTT;
+        this.maTV = maTV;
+        this.maSach = maSach;
+        this.ngay = ngay;
+        this.traSach = traSach;
+        this.tienThue = tienThue;
     }
 
     public int getMaPM() {
@@ -62,11 +65,11 @@ public class phieuMuon {
         this.maSach = maSach;
     }
 
-    public String getNgay() {
+    public Date getNgay() {
         return ngay;
     }
 
-    public void setNgay(String ngay) {
+    public void setNgay(Date ngay) {
         this.ngay = ngay;
     }
 
@@ -84,29 +87,5 @@ public class phieuMuon {
 
     public void setTienThue(int tienThue) {
         this.tienThue = tienThue;
-    }
-
-    public String getTenTV() {
-        return tenTV;
-    }
-
-    public void setTenTV(String tenTV) {
-        this.tenTV = tenTV;
-    }
-
-    public String getTenTT() {
-        return tenTT;
-    }
-
-    public void setTenTT(String tenTT) {
-        this.tenTT = tenTT;
-    }
-
-    public String getTenSach() {
-        return tenSach;
-    }
-
-    public void setTenSach(String tenSach) {
-        this.tenSach = tenSach;
     }
 }

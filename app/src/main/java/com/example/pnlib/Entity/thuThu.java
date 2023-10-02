@@ -1,7 +1,7 @@
 package com.example.pnlib.Entity;
 
 public class thuThu {
-    public String maTT, hoTen, matKhau;
+    private String maTT, hoTen, matKhau;
 
     public thuThu() {
     }

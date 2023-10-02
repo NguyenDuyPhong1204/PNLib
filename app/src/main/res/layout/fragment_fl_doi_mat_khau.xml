@@ -14,7 +14,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:id="@+id/checkOld">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edMKCu"
@@ -28,7 +29,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:id="@+id/checkNew">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edMKMoi"
@@ -41,7 +43,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:id="@+id/checkComfim">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edNLMKU"
