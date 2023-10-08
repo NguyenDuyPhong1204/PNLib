@@ -49,16 +49,16 @@ public class dang_nhap extends AppCompatActivity {
                         txtMatKhau.setError("Vui lòng nhập mật khẩu");
                     }
                 } else {
-                        if (thuThuDAO.checkDangNhap(edTen, matKhau)) {
-                            remember(edTen,matKhau,true);
-                            Intent intent = new Intent(dang_nhap.this,quanLyPhieuMuon.class);
-                            intent.putExtra("TENDN",edTen);
-                            startActivity(intent);
-                            Toast.makeText(dang_nhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                        } else {
-                            txtTaiKhoan.setError("Sai tài khoản hoặc mật khẩu");
-                            txtMatKhau.setError("Sai tài khoản hoặc mật khẩu");
-                        }
+                    if (thuThuDAO.checkDangNhap(edTen, matKhau)) {
+                        remember(edTen, matKhau, true);
+                        Intent intent = new Intent(dang_nhap.this, quanLyPhieuMuon.class);
+                        intent.putExtra("TENDN", edTen);
+                        startActivity(intent);
+                        Toast.makeText(dang_nhap.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        txtTaiKhoan.setError("Sai tài khoản hoặc mật khẩu");
+                        txtMatKhau.setError("Sai tài khoản hoặc mật khẩu");
+                    }
                 }
             }
         });
@@ -73,21 +73,22 @@ public class dang_nhap extends AppCompatActivity {
         });
     }
 
-    public void remember(String tenDN, String matKhau,boolean rem ){
-        SharedPreferences s = getSharedPreferences("Acc.txt",MODE_PRIVATE);
-        SharedPreferences.Editor e =s.edit();//tạo một đối tượng Edit để chỉnh sửa
-        e.putString("TenDN",tenDN);//đặt Tên đăng nhập với khoá TenDN
-        e.putString("MatKhau",matKhau);
-        e.putBoolean("Rem",rem);
+    public void remember(String tenDN, String matKhau, boolean rem) {
+        SharedPreferences s = getSharedPreferences("Acc.txt", MODE_PRIVATE);
+        SharedPreferences.Editor e = s.edit();//tạo một đối tượng Edit để chỉnh sửa
+        e.putString("TenDN", tenDN);//đặt Tên đăng nhập với khoá TenDN
+        e.putString("MatKhau", matKhau);
+        e.putBoolean("Rem", rem);
         e.apply();//áp dụng thay đổi
     }
-    public void checkRemember(){
-        SharedPreferences s = getSharedPreferences("Acc.txt",MODE_PRIVATE);
-        String tenDN = s.getString("TenDN","");//lấy giá trị từ SharedPreferences
-        String matKhau = s.getString("MatKhau","");
-        boolean check = s.getBoolean("Rem",false);//lấy giá trị trạng thái của check box
+
+    public void checkRemember() {
+        SharedPreferences s = getSharedPreferences("Acc.txt", MODE_PRIVATE);
+        String tenDN = s.getString("TenDN", "");//lấy giá trị từ SharedPreferences
+        String matKhau = s.getString("MatKhau", "");
+        boolean check = s.getBoolean("Rem", false);//lấy giá trị trạng thái của check box
         chkLuuTK.setChecked(check);
-        if(chkLuuTK.isChecked()){
+        if (chkLuuTK.isChecked()) {
             edTenDN.setText(tenDN);
             edMatKhau.setText(matKhau);
         }

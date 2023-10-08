@@ -50,7 +50,7 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
     sqpnerTS spinerTS;
     String maTT;
     int maTV;
-    int maSach,tienThue;
+    int maSach, tienThue;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public adapterPhieuMuon(Context context, ArrayList<phieuMuon> list) {
@@ -154,10 +154,11 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
 
         }
     }
-    public void update(phieuMuon phieuMuonU){
+
+    public void update(phieuMuon phieuMuonU) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_update_pm,null);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_pm, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -172,16 +173,33 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
         Button btnUpdate = view.findViewById(R.id.btnUpdate_PM);
         Button btnCancel = view.findViewById(R.id.btnCancel_Pm_up);
 
-        //
-
+        //hiển thị dữ liệu
+        tvMaPM.setText(String.valueOf(phieuMuonU.getMaPM()));
+        tvTien.setText(String.valueOf(phieuMuonU.getTienThue()));
+        tvNgay.setText(simpleDateFormat.format(phieuMuonU.getNgay()));
+        if (phieuMuonU.getTraSach() == 1) {
+            chkTT.setChecked(true);
+        }
+        String getMaTT = phieuMuonU.getMaTT();
+        int getMaTV = phieuMuonU.getMaTV();
+        int getMaSach = phieuMuonU.getMaSach();
+//        int tien
 
 
         //
         thuThuDAO = new thuThuDAO(context);
         listTT = new ArrayList<>();
         listTT = thuThuDAO.getAll();
-        spinerTT = new spinerTT(context,listTT);
+        spinerTT = new spinerTT(context, listTT);
         spTT.setAdapter(spinerTT);
+        for (int i = 0; i < listTT.size(); i++) {
+           if(listTT.get(i).getMaTT().equals(getMaTT)){
+               spTT.setSelection(i);
+               maTT = getMaTT;
+               break;
+           }
+        }
+        //
         spTT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -197,8 +215,15 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
         tvDAO = new thanhVienDAO(context);
         listTV = new ArrayList<>();
         listTV = tvDAO.getAll();
-        spinerTv = new spiner_TV(context,listTV);
+        spinerTv = new spiner_TV(context, listTV);
         spTV.setAdapter(spinerTv);
+        for (int i = 0; i < listTV.size(); i++) {
+            if (listTV.get(i).getMaTV() == getMaTV) {
+                spTV.setSelection(i);
+                maTV = getMaTV;
+                break;
+            }
+        }
         spTV.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,8 +239,15 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
         sachDAO = new sachDAO(context);
         listS = new ArrayList<>();
         listS = sachDAO.getAll();
-        spinerTS = new sqpnerTS(context,listS);
+        spinerTS = new sqpnerTS(context, listS);
         spTS.setAdapter(spinerTS);
+        for (int i = 0; i < listS.size(); i++) {
+            if (listS.get(i).getMaSach() == getMaSach) {
+                spTS.setSelection(i);
+                maSach = getMaSach;
+                break;
+            }
+        }
         spTS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -232,11 +264,11 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
 
 
         //hiển thị
-        tvMaPM.setText(String.valueOf(phieuMuonU.getMaPM()));
-        tvTien.setText(String.valueOf(phieuMuonU.getTienThue()));
-        tvNgay.setText(simpleDateFormat.format(phieuMuonU.getNgay()));
-        chkTT.setChecked(Boolean.parseBoolean(String.valueOf(phieuMuonU.getTraSach())));
-        spTS.getBaseline();
+//        tvMaPM.setText(String.valueOf(phieuMuonU.getMaPM()));
+//        tvTien.setText(String.valueOf(phieuMuonU.getTienThue()));
+//        tvNgay.setText(simpleDateFormat.format(phieuMuonU.getNgay()));
+//        chkTT.setChecked(Boolean.parseBoolean(String.valueOf(phieuMuonU.getTraSach())));
+
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,19 +278,19 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
                 phieuMuonU.setMaSach(maSach);
                 phieuMuonU.setNgay(new Date());
                 phieuMuonU.setTienThue(tienThue);
-                if(chkTT.isChecked()){
+                if (chkTT.isChecked()) {
                     phieuMuonU.setTraSach(1);
-                }else{
+                } else {
                     phieuMuonU.setTraSach(0);
                 }
-                if(pmDAO.update(phieuMuonU)){
+                if (pmDAO.update(phieuMuonU)) {
                     list.clear();
                     list.addAll(pmDAO.getAll());
                     notifyDataSetChanged();
                     dialog.dismiss();
-                    Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "Update thành công", Toast.LENGTH_SHORT).show();
                 }
             }
         });

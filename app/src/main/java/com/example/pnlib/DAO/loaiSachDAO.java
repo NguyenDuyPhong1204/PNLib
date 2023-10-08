@@ -33,7 +33,7 @@ public class loaiSachDAO {
     }
 
     @SuppressLint("Range")
-    public ArrayList<loaiSach> getData(String sql, String... selectionArgs) {
+    public ArrayList<loaiSach> getData(String sql, String...selectionArgs) {
         ArrayList<loaiSach> list = new ArrayList<>();
         //đọc dữ liệu từ database
         Cursor cursor = database.rawQuery(sql, selectionArgs);

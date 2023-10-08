@@ -46,7 +46,7 @@ public class sqpnerTS extends BaseAdapter {
         TextView tvMa = convertView.findViewById(R.id.tvMaSPM);
         TextView tvTen = convertView.findViewById(R.id.tvTenSPM);
         //3 . Điền dữ liệu
-        tvMa.setText(list.get(position).getTenSach()+".");
+        tvMa.setText(list.get(position).getMaSach()+".");
         tvTen.setText(list.get(position).getTenSach());
         return convertView;
     }

@@ -32,8 +32,8 @@ public class thongKeDAO {
         Cursor cursor = database.rawQuery(sqlTop, null);
         while (cursor.moveToNext()) {
             topMuon topMuon = new topMuon();
-//            sach sach = sachDAO.getID(cursor.getString(cursor.getColumnIndex("maSach")));
-//            topMuon.setTenSach(sach.getTenSach());
+            sach sach = sachDAO.getID(cursor.getString(cursor.getColumnIndex("maSach")));
+            topMuon.setTenSach(sach.getTenSach());
             topMuon.setSoLuong( Integer.parseInt(cursor.getString(cursor.getColumnIndex("soLuong"))));
             list.add(topMuon);
         }
@@ -42,7 +42,7 @@ public class thongKeDAO {
     @SuppressLint("Range")
     //thống kê doanh thu
     public int doanhThu(String tuNgay, String denNgay){
-        String sqlDoanhThu = "select SUM(tienThue) as doanhThu from PhieuMuon where ngay between ? and ?";
+        String sqlDoanhThu = "select SUM(tienThue) as doanhThu from PhieuMuon where ngayMuon between ? and ?";
         ArrayList<Integer> list = new ArrayList<>();
         Cursor cursor = database.rawQuery(sqlDoanhThu,new String[]{tuNgay,denNgay});
         while(cursor.moveToNext()){

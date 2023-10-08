@@ -25,11 +25,12 @@ public class flTaoTtaiKhoan extends Fragment {
     Button btnThem, btnHuy;
     ArrayList<thuThu> list;
     thuThuDAO thuThuDAO;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fl_tao_ttai_khoan,null);
+        View view = inflater.inflate(R.layout.fragment_fl_tao_ttai_khoan, null);
         edHoTen = view.findViewById(R.id.edHoTen);
         edTenDN = view.findViewById(R.id.edTenDNT);
         edMK = view.findViewById(R.id.edMatKhauT);
@@ -53,34 +54,36 @@ public class flTaoTtaiKhoan extends Fragment {
                 String matKhau = edMK.getText().toString();
                 String cfMatKhau = edCFMK.getText().toString();
 
-                if(tenDN.isEmpty() || hoTen.isEmpty() || matKhau.isEmpty() || cfMatKhau.isEmpty()){
-                    if(tenDN.equals("")){
+                if (tenDN.isEmpty() || hoTen.isEmpty() || matKhau.isEmpty() || cfMatKhau.isEmpty()) {
+                    if (tenDN.equals("")) {
                         checkTDN.setError("Không được để trống");
-                    }else{
+                    } else {
                         checkTDN.setError(null);
                     }
-                    if(hoTen.equals("")){
+                    if (hoTen.equals("")) {
                         checkHT.setError("Không được để trống");
-                    }else{
+                    } else {
                         checkHT.setError(null);
                     }
-                    if(matKhau.equals("")){
+                    if (matKhau.equals("")) {
                         checkMK.setError("Không được để trống");
-                    }else{
+                    } else {
                         checkMK.setError(null);
                     }
-                    if(cfMatKhau.equals("")){
+                    if (cfMatKhau.equals("")) {
                         checkCFMK.setError("Không được để trống");
-                    }else{
+                    } else {
                         checkCFMK.setError(null);
                     }
 
                 } else if (!cfMatKhau.equals(matKhau)) {
                     checkMK.setError("Mật khẩu không giống nhau");
                     checkCFMK.setError("Mật khẩu không giống nhau");
-                } else{
-                    thuThu thuThu = new thuThu(tenDN,hoTen,matKhau);
-                    if(thuThuDAO.insert(thuThu) > 0){
+                } else {
+                    thuThu thuThu = new thuThu(tenDN, hoTen, matKhau);
+                    if(thuThuDAO.checkThuThu(tenDN)){
+                        checkTDN.setError("Tên đăng nhập đã tồn tại");
+                    }else if (thuThuDAO.insert(thuThu) > 0) {
                         list.clear();
                         list.addAll(thuThuDAO.getAll());
                         Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
@@ -88,7 +91,7 @@ public class flTaoTtaiKhoan extends Fragment {
                         edHoTen.setText("");
                         edMK.setText("");
                         edCFMK.setText("");
-                    }else{
+                    } else {
                         Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -12,7 +12,7 @@ public class manHinhCho extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(manHinhCho.this, dang_nhap.class));

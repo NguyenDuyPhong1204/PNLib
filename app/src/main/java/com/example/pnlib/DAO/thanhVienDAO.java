@@ -36,7 +36,7 @@ public class thanhVienDAO {
 
     //getdata nhiều tham số
     @SuppressLint("Range")
-    public ArrayList<thanhVien> getData(String sql, String... selectionArgs) {
+    public ArrayList<thanhVien> getData(String sql, String...selectionArgs) {
         ArrayList<thanhVien> list = new ArrayList<>();
         Cursor cursor = database.rawQuery(sql, selectionArgs);
         while (cursor.moveToNext()) {

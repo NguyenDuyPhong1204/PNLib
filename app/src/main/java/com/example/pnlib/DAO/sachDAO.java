@@ -20,33 +20,34 @@ public class sachDAO {
         database = dbhelper.getWritableDatabase();
     }
 
-
-    @SuppressLint("Range")
-    public ArrayList<sach> getData(String sql, String... selectionArgs) {
-        ArrayList<sach> list = new ArrayList<>();
-        Cursor cursor = database.rawQuery(sql, selectionArgs);
-        while (cursor.moveToNext()) {
-            sach sach = new sach();
-            sach.setMaSach(Integer.parseInt(cursor.getString(cursor.getColumnIndex("maSach"))));
-            sach.setMaLoai(Integer.parseInt(cursor.getString(cursor.getColumnIndex("maLoai"))));
-            sach.setTenSach(cursor.getString(cursor.getColumnIndex("tenSach")));
-            sach.setGiaThue(Integer.parseInt((cursor.getString(cursor.getColumnIndex("giaThue")))));
-            list.add(sach);
-        }
-        return list;
-    }
-
     public ArrayList<sach> getAll() {
         String sql = "select * from Sach";
         return getData(sql);
     }
 
     //get theo id
-    public sach getID(String id) {
-        String sql = "select * from Sach where maSach= ?";
+    public sach getID(String id){
+        String sql = "SELECT * FROM Sach WHERE maSach=?";
         ArrayList<sach> list = getData(sql,id);
         return list.get(0);
     }
+
+    @SuppressLint("Range")
+    public ArrayList<sach> getData(String sql, String...selectionArgs) {
+        ArrayList<sach> list = new ArrayList<>();
+        Cursor cursor = database.rawQuery(sql, selectionArgs);
+        while (cursor.moveToNext()) {
+            sach sach = new sach();
+            sach.setMaSach(Integer.parseInt(cursor.getString(cursor.getColumnIndex("maSach"))));
+            sach.setTenSach(cursor.getString(cursor.getColumnIndex("tenSach")));
+            sach.setGiaThue(Integer.parseInt((cursor.getString(cursor.getColumnIndex("giaThue")))));
+            sach.setMaLoai(Integer.parseInt(cursor.getString(cursor.getColumnIndex("maLoai"))));
+            list.add(sach);
+        }
+        return list;
+    }
+
+
 
 
     public long insert(sach sach) {
@@ -54,7 +55,7 @@ public class sachDAO {
         ContentValues values = new ContentValues();
         values.put("tenSach", sach.getTenSach());
         values.put("giaThue", sach.getGiaThue());
-        values.put("maLoai", String.valueOf(sach.getMaLoai()));
+        values.put("maLoai", sach.getMaLoai());
         return database.insert("Sach", null, values);
     }
 

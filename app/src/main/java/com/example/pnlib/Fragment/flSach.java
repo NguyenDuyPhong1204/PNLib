@@ -127,7 +127,7 @@ public class flSach extends Fragment {
                       return;
                   }
                     int ma = matl;
-                    int giaTien = Integer.valueOf(gia);
+                    int giaTien = Integer.parseInt(gia);
                     sach sachA = new sach(tenSach, giaTien, ma);
                     if (sachDAO.insert(sachA) >0) {
                         list.clear();

@@ -28,13 +28,14 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
-public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
+public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep> {
     Context context;
     private final ArrayList<sach> list;
     sachDAO sachDAO;
     int matl;
     loaiSachDAO lsDAO;
     ArrayList<loaiSach> listTL;
+    spiner_sach spinerSach;
 
     public adapterSach(Context context, ArrayList<sach> list) {
         this.context = context;
@@ -45,17 +46,22 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
     @NonNull
     @Override
     public viewHolep onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qls,null);
-       return new viewHolep(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qls, null);
+        return new viewHolep(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolep holder, int position) {
+        sach sach = list.get(position);
+        lsDAO = new loaiSachDAO(context);
+        loaiSach loaiSach = lsDAO.getID(String.valueOf(sach.getMaLoai()));
+
         holder.tvMaS.setText(String.valueOf(list.get(position).getMaSach()));
         holder.tvTenSach.setText(list.get(position).getTenSach());
         holder.tvGiaThue.setText(String.valueOf(list.get(position).getGiaThue()));
-        holder.tvmaLoai.setText(String.valueOf(list.get(position).getMaLoai()));
-        sach sach = list.get(position);
+        holder.tvmaLoai.setText(loaiSach.getTenLoai());
+
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -72,12 +78,12 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(sachDAO.delete(String.valueOf(sach.getMaSach()))> 0){
+                        if (sachDAO.delete(String.valueOf(sach.getMaSach())) > 0) {
                             list.clear();
                             list.addAll(sachDAO.getAll());
                             notifyDataSetChanged();
                             Toast.makeText(context, "Xoá thành công", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(context, "Xoá không thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -98,9 +104,10 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
         return list.size();
     }
 
-    public static class viewHolep extends RecyclerView.ViewHolder{
-        TextView tvMaS, tvTenSach, tvGiaThue,tvmaLoai;
+    public static class viewHolep extends RecyclerView.ViewHolder {
+        TextView tvMaS, tvTenSach, tvGiaThue, tvmaLoai;
         ImageView imgXoa;
+
         public viewHolep(@NonNull View itemView) {
             super(itemView);
             tvMaS = itemView.findViewById(R.id.tvMaSach);
@@ -111,11 +118,11 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
         }
     }
 
-    public void update(sach sachU){
+    public void update(sach sachU) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         //gán layout
-        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_update_sach,null);
+        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_update_sach, null);
         builder.setView(view);
         Dialog dialog = builder.create();
         dialog.show();
@@ -133,12 +140,22 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
         tvMa.setText("Mã sách:" + sachU.getMaSach());
         edTenU.setText(sachU.getTenSach());
         edTien.setText(String.valueOf(sachU.getGiaThue()));
+        int getMaTL = sachU.getMaLoai();
+
 
         listTL = new ArrayList<>();
         lsDAO = new loaiSachDAO(context);
         listTL = lsDAO.getAll();
-        spiner_sach spinerSach = new spiner_sach(context,listTL);
+//        spiner_sach spinerSach = new spiner_sach(context, listTL);
+        spinerSach = new spiner_sach(context,listTL);
         spinner.setAdapter(spinerSach);
+        for (int i = 0; i < listTL.size(); i++) {
+            if (listTL.get(i).getMaLoai() == getMaTL) {
+                spinner.setSelection(i);
+                matl = getMaTL;
+                break;
+            }
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -161,22 +178,22 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
                 if (ten.isEmpty() || tien.isEmpty()) {
                     if (ten.equals("")) {
                         checkTen.setError("Không được để trống");
-                    }else {
+                    } else {
                         checkTen.setError(null);
                     }
-                    if(tien.equals("")){
+                    if (tien.equals("")) {
                         checkGia.setError("Không được để trống");
-                    }else {
+                    } else {
                         checkGia.setError(null);
                     }
                 } else {
                     try {
                         int giaTien = Integer.parseInt(tien);
-                        if(giaTien <= 0){
+                        if (giaTien <= 0) {
                             checkGia.setError("Tiền phải lớn hơn 0");
                             return;
                         }
-                    }catch (NumberFormatException e){
+                    } catch (NumberFormatException e) {
                         checkGia.setError("Giá tiền phải là số");
                         return;
                     }
@@ -184,6 +201,7 @@ public class adapterSach extends RecyclerView.Adapter<adapterSach.viewHolep>{
                     int giaTien = Integer.valueOf(tien);
                     sachU.setTenSach(ten);
                     sachU.setGiaThue(giaTien);
+                    sachU.setMaLoai(ma);
                     if (sachDAO.update(sachU) > 0) {
                         list.clear();
                         list.addAll(sachDAO.getAll());

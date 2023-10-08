@@ -49,7 +49,7 @@ public class thuThuDAO {
 
 
     @SuppressLint("Range")
-    public ArrayList<thuThu> getData(String sql, String... selectionArgs) {
+    public ArrayList<thuThu> getData(String sql, String...selectionArgs) {
         ArrayList<thuThu> list = new ArrayList<>();
         Cursor cursor = database.rawQuery(sql, selectionArgs);
         while (cursor.moveToNext()) {
@@ -64,8 +64,9 @@ public class thuThuDAO {
 
     public long insert(thuThu thuThu) {
         //viết dữ liệu vào database
+//        SQLiteDatabase db = get
         ContentValues values = new ContentValues();
-//        values.put("maTT", thuThu.maTT);
+        values.put("maTT", thuThu.getMaTT());
         values.put("hoTenTT", thuThu.getHoTen());
         values.put("matKhau", thuThu.getMatKhau());
         return database.insert("ThuThu", null, values);

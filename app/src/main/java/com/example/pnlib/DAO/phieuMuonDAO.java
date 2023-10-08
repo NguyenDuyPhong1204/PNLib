@@ -36,7 +36,7 @@ public class phieuMuonDAO {
     }
 
     @SuppressLint("Range")
-    public ArrayList<phieuMuon> getData(String sql, String... selectionArgs) {
+    public ArrayList<phieuMuon> getData(String sql, String...selectionArgs) {
         ArrayList<phieuMuon> list = new ArrayList<>();
 //        String sqlPM = "SELECT PhieuMuon.*, ThanhVien.hoTenTV, ThuThu.hoTenTT, Sach.tenSach \n" +
 //                "from PhieuMuon INNER JOIN ThanhVien ON PhieuMuon.maTV = ThanhVien.maTV\n" +
@@ -64,12 +64,12 @@ public class phieuMuonDAO {
     public boolean insert(phieuMuon phieuMuon) {
         //viết dữ liệu vào database
         ContentValues values = new ContentValues();
-        values.put("maTV", String.valueOf(phieuMuon.getMaTV()));
+        values.put("maTV", phieuMuon.getMaTV());
         values.put("maTT", phieuMuon.getMaTT());
-        values.put("maSach", String.valueOf(phieuMuon.getMaSach()));
+        values.put("maSach", phieuMuon.getMaSach());
         values.put("ngayMuon", dateFormat.format(phieuMuon.getNgay()));
-        values.put("traSach", String.valueOf(phieuMuon.getTraSach()));
-        values.put("tienThue", String.valueOf(phieuMuon.getTienThue()));
+        values.put("traSach",phieuMuon.getTraSach());
+        values.put("tienThue", phieuMuon.getTienThue());
         long row = database.insert("PhieuMuon", null, values);
         return (row > 0);
     }
