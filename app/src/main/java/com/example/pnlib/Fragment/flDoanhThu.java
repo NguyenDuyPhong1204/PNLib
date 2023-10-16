@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pnlib.DAO.thongKeDAO;
 import com.example.pnlib.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -28,6 +32,7 @@ public class flDoanhThu extends Fragment {
     TextView tvDoanhThu;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     int getYear, getMonth, getDay;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class flDoanhThu extends Fragment {
                 getYear = year;
                 getMonth = month;
                 getDay = dayOfMonth;
-                GregorianCalendar gregorianCalendar = new GregorianCalendar(getYear,getMonth,getDay);
+                GregorianCalendar gregorianCalendar = new GregorianCalendar(getYear, getMonth, getDay);
                 edTuNgay.setText(simpleDateFormat.format(gregorianCalendar.getTime()));
             }
         };
@@ -57,7 +62,7 @@ public class flDoanhThu extends Fragment {
                 getYear = year;
                 getMonth = month;
                 getDay = dayOfMonth;
-                GregorianCalendar gregorianCalendar = new GregorianCalendar(getYear,getMonth,getDay);
+                GregorianCalendar gregorianCalendar = new GregorianCalendar(getYear, getMonth, getDay);
                 edDenNgay.setText(simpleDateFormat.format(gregorianCalendar.getTime()));
             }
         };
@@ -69,7 +74,7 @@ public class flDoanhThu extends Fragment {
                 getYear = calendar.get(Calendar.YEAR);
                 getMonth = calendar.get(Calendar.MONTH);
                 getDay = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(),0,dateTuNgay,getYear,getMonth,getDay);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), 0, dateTuNgay, getYear, getMonth, getDay);
                 dialog.show();
             }
         });
@@ -80,7 +85,7 @@ public class flDoanhThu extends Fragment {
                 getYear = calendar.get(Calendar.YEAR);
                 getMonth = calendar.get(Calendar.MONTH);
                 getDay = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(getActivity(),0,dateDenNgay,getYear,getMonth,getDay);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(), 0, dateDenNgay, getYear, getMonth, getDay);
                 dialog.show();
             }
         });
@@ -90,9 +95,62 @@ public class flDoanhThu extends Fragment {
                 String tuNgay = edTuNgay.getText().toString();
                 String denNgay = edDenNgay.getText().toString();
                 thongKeDAO thongKeDAO = new thongKeDAO(getActivity());
-                tvDoanhThu.setText(thongKeDAO.doanhThu(tuNgay,denNgay) + "VNĐ");
+                if (check(tuNgay, denNgay, edTuNgay, edDenNgay)) {
+                    tvDoanhThu.setText(thongKeDAO.doanhThu(tuNgay, denNgay) + "VNĐ");
+                }
+//                else {
+////                    tvDoanhThu.setText(thongKeDAO.doanhThu(tuNgay, denNgay) + "VNĐ");
+//                }
+
             }
         });
         return view;
+    }
+
+    public boolean check(String tDay, String dDay, EditText edTN, EditText edDN) {
+
+        if (TextUtils.isEmpty(tDay) || TextUtils.isEmpty(dDay))
+            if (TextUtils.isEmpty(tDay)) {
+                edTN.setError("Vui lòng chọn ngày bắt đầu");
+            } else {
+                edTN.setError(null);
+            }
+        if (TextUtils.isEmpty(dDay)) {
+            edDN.setError("Vui lòng chọn ngày kết thúc");
+        } else {
+            edDN.setError(null);
+        }
+
+        try {
+            Date startDate = simpleDateFormat.parse(tDay);
+            Date endDay = simpleDateFormat.parse(dDay);
+            Date cDate = new Date();//ngày hiện tại
+            if (startDate.after(cDate) || endDay.after(cDate) || startDate.after(endDay)) {
+                if (startDate.after(cDate)) {
+                    edTN.setError("Không được lớn hơn ngày hiện tại");
+                } else {
+                    edTN.setError(null);
+                }
+
+                if (endDay.after(cDate)) {
+                    edDN.setError("Không được lớn hơn ngày hiện tại");
+                } else {
+                    edDN.setError(null);
+                }
+
+                if (startDate.after(endDay)) {
+                    edTN.setError("Từ ngày không được muộn hơn đến ngày");
+                } else {
+                    edTN.setError(null);
+                }
+
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "Lỗi ngày tháng", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }
