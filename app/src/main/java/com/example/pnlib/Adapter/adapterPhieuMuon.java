@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pnlib.DAO.phieuMuonDAO;
@@ -86,8 +88,10 @@ public class adapterPhieuMuon extends RecyclerView.Adapter<adapterPhieuMuon.view
             String trangThai = "";
             if (list.get(position).getTraSach() == 1) {
                 trangThai = "Đã trả";
+//                holder.tvTrangThai.setTextColor(ContextCompat.getColor(context,R.color.blue));
             } else {
                 trangThai = "Chưa trả";
+                holder.tvTrangThai.setTextColor(ContextCompat.getColor(context,R.color.red));
             }
             holder.tvTrangThai.setText(trangThai);
             holder.tvNgay.setText(simpleDateFormat.format(phieuMuon.getNgay()));

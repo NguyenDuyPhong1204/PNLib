@@ -45,9 +45,9 @@
         android:id="@+id/checkMK"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edMatKhauT"
@@ -61,7 +61,8 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edNLMK"
