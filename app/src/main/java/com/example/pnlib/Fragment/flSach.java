@@ -3,12 +3,17 @@ package com.example.pnlib.Fragment;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +33,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class flSach extends Fragment {
@@ -35,6 +42,7 @@ public class flSach extends Fragment {
     FloatingActionButton fltAdd;
     ArrayList<sach> list;
     ArrayList<loaiSach> listTen;
+    ArrayList<sach> newList = new ArrayList<>();
     sachDAO sachDAO;
     loaiSachDAO lsDAO;
     adapterSach adapterSach;
@@ -53,6 +61,7 @@ public class flSach extends Fragment {
         sachDAO = new sachDAO(getActivity());
         list = new ArrayList<>();
         list = sachDAO.getAll();
+        newList = sachDAO.getAll();
         adapterSach = new adapterSach(getActivity(), list);
         rcvS.setAdapter(adapterSach);
 
@@ -62,7 +71,7 @@ public class flSach extends Fragment {
                 add();
             }
         });
-
+        setHasOptionsMenu(true);
         return view;
     }
 
@@ -142,5 +151,56 @@ public class flSach extends Fragment {
             dialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_tim,menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                list.clear();
+                for(sach sach : newList){
+                    if(sach.getTenSach().toLowerCase().contains(newText.toLowerCase())){
+                        list.add(sach);
+                    }
+                    adapterSach.notifyDataSetChanged();
+                }
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.len){
+            Collections.sort(list, new Comparator<sach>() {
+                @Override
+                public int compare(sach o1, sach o2) {
+                    return o1.getTenSach().compareTo(o2.getTenSach());
+                }
+            });
+            adapterSach.notifyDataSetChanged();
+            return true;
+        } else if (id == R.id.xuong) {
+            Collections.sort(list, new Comparator<sach>() {
+                @Override
+                public int compare(sach o1, sach o2) {
+                    return o2.getTenSach().compareTo(o1.getTenSach());
+                }
+            });
+            adapterSach.notifyDataSetChanged();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
